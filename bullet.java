@@ -7,20 +7,17 @@ class bullet extends Sprite
 
 	void updateSprite()
 	{
-		if (active)
-		{
-			fire();
-		}
+		if (active) fire(); //Moves the bullets when active
 	}
 
 	void render(GraphicsContext gc)
 	{
 	    if (visible)
-	    {
-	      gc.setFill(Color.WHITE);
-	      gc.fillOval(x-rad, y-rad, 2*rad, 2*rad);
-	      gc.setStroke(Color.BLUE);
-	      gc.strokeOval(x-rad, y-rad, 2*rad, 2*rad);
+	    { //Create bullet sprite
+	    	gc.setFill(Color.WHITE);
+	    	gc.fillOval(x-rad, y-rad, 2*rad, 2*rad);
+	    	gc.setStroke(Color.BLUE);
+	    	gc.strokeOval(x-rad, y-rad, 2*rad, 2*rad);
 	    }
 	}
 

@@ -9,6 +9,7 @@ class Sprite
 	
 	void updatePosition()
 	{
+		//All movement reactions for player inputs
 		if (up) y-=v;
 		if (left) x-=v;
 		if (right) x+=v;
@@ -17,6 +18,8 @@ class Sprite
 		if (clock) th+=v;
 	}
 	void fire() {
+		
+		//Handles the moving of a bullet when fired
 		if (x > 0 && y > 0 && x < 600 && y < 600) {
 			x += (v*Math.cos(Math.toRadians(hth)));
 			y += (v*Math.sin(Math.toRadians(hth)));
@@ -27,7 +30,7 @@ class Sprite
 		}
 		
 	}
-	void setPosition(double x2, double y2)
+	void setPosition(double x2, double y2) //Method to initialize/set coordinates of sprites
 	{
 		x = x2; y = y2;
 	}
@@ -55,9 +58,5 @@ class Sprite
 	{
 		active = true; visible = true;
 		setPosition(x, y);
-	}
-	
-	void shoot() {
-						
 	}
 }

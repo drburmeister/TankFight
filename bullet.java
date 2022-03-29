@@ -7,7 +7,9 @@ class bullet extends Sprite
 
 	void updateSprite()
 	{
-		if (active) fire(); //Moves the bullets when active
+		if (active) {
+			fire(); //Moves the bullets when active
+		}
 	}
 
 	void render(GraphicsContext gc)

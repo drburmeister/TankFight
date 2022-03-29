@@ -56,6 +56,8 @@ public class tankFight extends Application {
 						if (!b0.active) { //If player has 3 bullets ready
 							b0.resume();  //activate the bullet
 							b0.hth = p1.th;  //save gunner angle
+							b0.vx = (b0.v*Math.cos(Math.toRadians(b0.hth)));
+							b0.vy = (b0.v*Math.sin(Math.toRadians(b0.hth)));
 							b0.setPosition(p1.x + (p1.length*Math.cos(Math.toRadians(b0.hth)) + p1.body/2) , p1.y + (p1.length*Math.sin(Math.toRadians(b0.hth)) + p1.body/2));
 							//Initialize bullet start point to the end of the barrel							
 						}
@@ -63,12 +65,16 @@ public class tankFight extends Application {
 						else if (!b1.active) { //if player has 2 bullets ready
 							b1.resume();
 							b1.hth = p1.th;
+							b1.vx = (b1.v*Math.cos(Math.toRadians(b1.hth)));
+							b1.vy = (b1.v*Math.sin(Math.toRadians(b1.hth)));
 							b1.setPosition(p1.x + (p1.length*Math.cos(Math.toRadians(b1.hth)) + p1.body/2) , p1.y + (p1.length*Math.sin(Math.toRadians(b1.hth)) + p1.body/2));
 							
 						}
 						else if (!b2.active) { //if player has 1 bullet remaining
 							b2.resume();
 							b2.hth = p1.th;
+							b2.vx = (b2.v*Math.cos(Math.toRadians(b2.hth)));
+							b2.vy = (b2.v*Math.sin(Math.toRadians(b2.hth)));
 							b2.setPosition(p1.x + (p1.length*Math.cos(Math.toRadians(b2.hth)) + p1.body/2) , p1.y + (p1.length*Math.sin(Math.toRadians(b2.hth)) + p1.body/2));
 							
 						}

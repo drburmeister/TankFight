@@ -42,7 +42,17 @@ class Tank extends Sprite
 			} //player 2 code (not yet implemented)
 			else if (player == 2) { 
 				gc.setFill(Color.RED);
-				gc.fillRoundRect(x, y, body, body, 4, 4);
+				gc.fillRoundRect(x, y, body, body, body/2, body/2);
+		        //Save the state of the GC for affine rotations
+			    gc.save();
+			    //Rotate barrel around the center point of the body by angle "th"
+			    gc.transform(new Affine(new Rotate(th + 180, x + body/2, y + body/2)));
+			    //Build tank barrel
+				gc.fillRoundRect(x + (body - length/4)/2, y + (body - length/4)/2, length, length/4, length/4, length/4);
+				gc.setStroke(Color.BLACK);
+				gc.strokeRoundRect(x + (body - length/4)/2, y + (body - length/4)/2, length, length/4, length/4, length/4);
+				//Restore state of GC with transformations
+				gc.restore(); 
 			}
 		}
 	}

@@ -45,14 +45,21 @@ class Sprite
 	{
 		x = x2; y = y2;
 	}
+	boolean isHit(Sprite b)
+	{
+		if ((((b.x <= (x + Tank.body)) && ((b.x+bullet.rad) >= x)) && ((b.y <= (y+Tank.body)) && ((b.y+bullet.rad) >= y))))
+			return true;
+		return false;
+	}
+
 	boolean isCloserThan(Sprite s, double dist)
 	{
-		// Return true if Sprite s is closer to
-		// the current Sprite (this) than specified
-		// distance dist.
-		double dx = x-s.x;
-		double dy = y-s.y;
-		return dx*dx+dy*dy < dist*dist;
+	  	// Return true if Sprite s is closer to
+	  	// the current Sprite (this) than specified
+	  	// distance dist.
+	    double dx = x-s.x;
+	    double dy = y-s.y;
+	    return dx*dx+dy*dy < dist*dist;
 	}
 
 	boolean isActive()

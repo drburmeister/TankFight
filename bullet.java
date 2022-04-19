@@ -18,7 +18,7 @@ class bullet extends Sprite
 	    { //Create bullet sprite
 	    	gc.setFill(Color.WHITE);
 	    	gc.fillOval(x-rad, y-rad, 2*rad, 2*rad);
-	    	gc.setStroke(Color.BLUE);
+	    	gc.setStroke(Color.BLACK);
 	    	gc.strokeOval(x-rad, y-rad, 2*rad, 2*rad);
 	    }
 	}

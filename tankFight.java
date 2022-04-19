@@ -11,7 +11,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-
+/*Tank Fight Game
+ * Authors: Dennis Burmeister, Chris Piszczek, Andrew Leinauer 
+ * Date: 3.30.22 
+ */
 public class tankFight extends Application {
 	final String appName = "Tank Wars";
 	final int FPS = 30; // frames per second
@@ -23,14 +26,14 @@ public class tankFight extends Application {
 	 */	
 	Sprite[] tanks = new Sprite[2];
 	Tank p1;
-	//Tank p2;
+	Tank p2;
 	Sprite[] bullets = new Sprite[6];
 	
 	bullet b0, b1, b2, b3, b4, b5;
 	void initialize() //Method to initialize all objects
 	{
 		tanks[0] = p1 = new Tank();
-		//	tanks[1] = p2 = new Tank();
+		tanks[1] = p2 = new Tank();
 		
 		//3 bullets per player
 		bullets[0] = b0 = new bullet();
@@ -41,10 +44,10 @@ public class tankFight extends Application {
 		bullets[5] = b5 = new bullet();
 
 
-		p1.setPosition(WIDTH/2 - p1.body/2, HEIGHT/2 - p1.body/2);
-	//	p2.setPosition(3*WIDTH/4, HEIGHT/2);
+		p1.setPosition(WIDTH/4 - p1.body/2, HEIGHT/2 - p1.body/2);
+		p2.setPosition(3*WIDTH/4 - p2.body/2, HEIGHT/2 - p2.body/2);
 		p1.resume();
-	//	p2.resume();
+		p2.resume();
 	}
 	
 	void setHandlers(Scene scene)
@@ -52,31 +55,20 @@ public class tankFight extends Application {
 		//Handlers for when keys are pressed
 		scene.setOnKeyPressed(
 			e -> { 
-					if (e.getCode() == KeyCode.SPACE) { //If fire
-						if (!b0.active) { //If player has 3 bullets ready
-							b0.resume();  //activate the bullet
-							b0.hth = p1.th;  //save gunner angle
-							b0.vx = (b0.v*Math.cos(Math.toRadians(b0.hth)));
-							b0.vy = (b0.v*Math.sin(Math.toRadians(b0.hth)));
-							b0.setPosition(p1.x + (p1.length*Math.cos(Math.toRadians(b0.hth)) + p1.body/2) , p1.y + (p1.length*Math.sin(Math.toRadians(b0.hth)) + p1.body/2));
-							//Initialize bullet start point to the end of the barrel							
-						}
-						
-						else if (!b1.active) { //if player has 2 bullets ready
-							b1.resume();
-							b1.hth = p1.th;
-							b1.vx = (b1.v*Math.cos(Math.toRadians(b1.hth)));
-							b1.vy = (b1.v*Math.sin(Math.toRadians(b1.hth)));
-							b1.setPosition(p1.x + (p1.length*Math.cos(Math.toRadians(b1.hth)) + p1.body/2) , p1.y + (p1.length*Math.sin(Math.toRadians(b1.hth)) + p1.body/2));
-							
-						}
-						else if (!b2.active) { //if player has 1 bullet remaining
-							b2.resume();
-							b2.hth = p1.th;
-							b2.vx = (b2.v*Math.cos(Math.toRadians(b2.hth)));
-							b2.vy = (b2.v*Math.sin(Math.toRadians(b2.hth)));
-							b2.setPosition(p1.x + (p1.length*Math.cos(Math.toRadians(b2.hth)) + p1.body/2) , p1.y + (p1.length*Math.sin(Math.toRadians(b2.hth)) + p1.body/2));
-							
+					//PLAYER 1 INPUTS
+					if (e.getCode() == KeyCode.TAB) { //If fire
+						if(p1.active) {
+							for (int i = 0; i < bullets.length/2; i++) {
+								if (!bullets[i].active) { //If player has 3 bullets ready
+									bullets[i].resume();  //activate the bullet
+									bullets[i].hth = p1.th;  //save gunner angle
+									bullets[i].vx = (bullets[i].v*Math.cos(Math.toRadians(bullets[i].hth)));
+									bullets[i].vy = (bullets[i].v*Math.sin(Math.toRadians(bullets[i].hth)));
+									bullets[i].setPosition(p1.x + (p1.length*Math.cos(Math.toRadians(bullets[i].hth)) + p1.body/2) , p1.y + (p1.length*Math.sin(Math.toRadians(bullets[i].hth)) + p1.body/2));
+									//Initialize bullet start point to the end of the barrel	
+									break;
+								}
+							}
 						}
 					} //Tank movement keys
 					if (e.getCode() == KeyCode.W) p1.up = true;
@@ -86,11 +78,42 @@ public class tankFight extends Application {
 					
 					if (e.getCode() == KeyCode.Q) p1.Cclock = true;
 					if (e.getCode() == KeyCode.E) p1.clock = true;
+					
+					if(e.getCode() == KeyCode.M) p1.resume();
+					
+					
+					
+					// PLAYER 2 INPUTS
+					if (e.getCode() == KeyCode.P) { //If fire
+						if(p2.active) {
+							for (int i = 3; i < bullets.length; i++) {
+								if (!bullets[i].active) { //If player has 3 bullets ready
+									bullets[i].resume();  //activate the bullet
+									bullets[i].hth = p2.th + 180;  //save gunner angle
+									bullets[i].vx = (bullets[i].v*Math.cos(Math.toRadians(bullets[i].hth)));
+									bullets[i].vy = (bullets[i].v*Math.sin(Math.toRadians(bullets[i].hth)));
+									bullets[i].setPosition(p2.x + (p2.length*Math.cos(Math.toRadians(bullets[i].hth)) + p2.body/2) , p2.y + (p2.length*Math.sin(Math.toRadians(bullets[i].hth)) + p2.body/2));
+									//Initialize bullet start point to the end of the barrel	
+									break;
+								}
+							}
+						}
+					} //Tank movement keys
+					if (e.getCode() == KeyCode.I) p2.up = true;
+					if (e.getCode() == KeyCode.J) p2.left = true;
+					if (e.getCode() == KeyCode.K) p2.down = true;
+					if (e.getCode() == KeyCode.L) p2.right = true;
+					
+					if (e.getCode() == KeyCode.U) p2.Cclock = true;
+					if (e.getCode() == KeyCode.O) p2.clock = true;
+					
+					if(e.getCode() == KeyCode.M) p2.resume();
 				}
 		);
 		
 		scene.setOnKeyReleased(
 				e -> {	//When keys are released player/barrel should stop
+					//PLAYER 1 RELEASE CODE
 					if (e.getCode() == KeyCode.W) p1.up = false;
 					if (e.getCode() == KeyCode.A) p1.left = false;
 					if (e.getCode() == KeyCode.S) p1.down = false;
@@ -98,6 +121,15 @@ public class tankFight extends Application {
 					
 					if (e.getCode() == KeyCode.Q) p1.Cclock = false;
 					if (e.getCode() == KeyCode.E) p1.clock = false; 
+					
+					//PLAYER 2 RELEASE CODE
+					if (e.getCode() == KeyCode.I) p2.up = false;
+					if (e.getCode() == KeyCode.J) p2.left = false;
+					if (e.getCode() == KeyCode.K) p2.down = false;
+					if (e.getCode() == KeyCode.L) p2.right = false;
+				
+					if (e.getCode() == KeyCode.U) p2.Cclock = false;
+					if (e.getCode() == KeyCode.O) p2.clock = false; 
 					}
 			);
 	}
@@ -109,6 +141,7 @@ public class tankFight extends Application {
 	{
 		//make sure all sprites are updating
 		p1.updateSprite();
+		p2.updateSprite();
 		b0.updateSprite();
 		b1.updateSprite();
 		b2.updateSprite();
@@ -116,7 +149,30 @@ public class tankFight extends Application {
 		b4.updateSprite();
 		b5.updateSprite();
 		
-	//	p2.updateSprite();
+		//player and bullet collision
+		for (int j = 0; j < tanks.length; j++) {		
+			if (tanks[j].isActive()) { 
+				for (int i = 0; i < bullets.length; i++) {
+					if (bullets[i].isActive() && tanks[j].isHit(bullets[i])) {
+						tanks[j].suspend();
+						bullets[i].suspend();
+					}
+				}
+			}
+		}
+		//bullet on bullet collision
+		for (int x = 0; x < bullets.length - 1; x++) {
+			if (bullets[x].isActive()) { 
+				for (int y = x + 1; y < bullets.length; y++) {
+					if(bullets[y].isActive()) {
+						if (bullets[x].isCloserThan(bullets[y], bullet.rad + bullet.rad/4)) {
+							bullets[x].suspend();
+							bullets[y].suspend();
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	/**
@@ -129,14 +185,13 @@ public class tankFight extends Application {
 		gc.setFill(Color.TAN);
 		gc.fillRect(0, 0, WIDTH, HEIGHT);
 		p1.render(gc, 1);
+		p2.render(gc, 2);
 		b0.render(gc);
 		b1.render(gc);
 		b2.render(gc);
 		b3.render(gc);
 		b4.render(gc);
 		b5.render(gc);
-	//	p2.render(gc, 2);
-
 	}
 
 	/*

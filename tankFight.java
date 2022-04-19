@@ -28,8 +28,10 @@ public class tankFight extends Application {
 	Tank p1;
 	Tank p2;
 	Sprite[] bullets = new Sprite[6];
+	Sprite[] walls = new Sprite[20];
 	
 	bullet b0, b1, b2, b3, b4, b5;
+	wall w0, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12, w13, w14, w15, w16, w17, w18, w19;
 	void initialize() //Method to initialize all objects
 	{
 		tanks[0] = p1 = new Tank();
@@ -42,12 +44,40 @@ public class tankFight extends Application {
 		bullets[3] = b3 = new bullet();
 		bullets[4] = b4 = new bullet();
 		bullets[5] = b5 = new bullet();
-
+	
+		walls[0] = w0 = new wall();
+		walls[1] = w1 = new wall();
+		walls[2] = w2 = new wall();
+		walls[3] = w3 = new wall();
+		walls[4] = w4 = new wall();
+		walls[5] = w5 = new wall();
+		walls[6] = w6 = new wall();
+		walls[7] = w7 = new wall();
+		walls[8] = w8 = new wall();
+		walls[9] = w9 = new wall();
+		walls[10] = w10 = new wall();
+		walls[11] = w11 = new wall();
+		walls[12] = w12 = new wall();
+		walls[13] = w13 = new wall();
+		walls[14] = w14 = new wall();
+		walls[15] = w15 = new wall();
+		walls[16] = w16 = new wall();
+		walls[17] = w17 = new wall();
+		walls[18] = w18 = new wall();
+		walls[19] = w19 = new wall();
+		
+		
 
 		p1.setPosition(WIDTH/4 - p1.body/2, HEIGHT/2 - p1.body/2);
 		p2.setPosition(3*WIDTH/4 - p2.body/2, HEIGHT/2 - p2.body/2);
 		p1.resume();
 		p2.resume();
+		
+		for(int i = 0; i < walls.length -1; i++) {
+
+			walls[i].setPosition(WIDTH/2 + wall.size/2, (wall.size)*i + wall.size/2);
+			walls[i].resume();
+		}
 	}
 	
 	void setHandlers(Scene scene)
@@ -142,6 +172,7 @@ public class tankFight extends Application {
 		//make sure all sprites are updating
 		p1.updateSprite();
 		p2.updateSprite();
+		
 		b0.updateSprite();
 		b1.updateSprite();
 		b2.updateSprite();
@@ -182,8 +213,31 @@ public class tankFight extends Application {
 		// fill background and set play area
 
 		//set playing field and render in all objectsW
+		
 		gc.setFill(Color.TAN);
 		gc.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		w0.render(gc);
+		w1.render(gc);
+		w2.render(gc);
+		w3.render(gc);
+		w4.render(gc);
+		w5.render(gc);
+		w6.render(gc);
+		w7.render(gc);
+		w8.render(gc);
+		w9.render(gc);
+		w10.render(gc);
+		w11.render(gc);
+		w12.render(gc);
+		w13.render(gc);
+		w14.render(gc);
+		w15.render(gc);
+		w16.render(gc);
+		w17.render(gc);
+		w18.render(gc);
+		w19.render(gc);
+		
 		p1.render(gc, 1);
 		p2.render(gc, 2);
 		b0.render(gc);
@@ -192,6 +246,10 @@ public class tankFight extends Application {
 		b3.render(gc);
 		b4.render(gc);
 		b5.render(gc);
+		
+	
+		
+		
 	}
 
 	/*

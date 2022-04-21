@@ -9,11 +9,11 @@ class Tank extends Sprite
 	public static final double body = 30;
 	public static final double length = 32;
 
-	void updateSprite()
+	void updateSprite(int player)
 	{
 		if (active)
 		{
-			updatePosition();
+			updateTank(player);
 		}
 	}
 

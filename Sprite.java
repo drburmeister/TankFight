@@ -3,23 +3,48 @@ import java.lang.*;
 
 class Sprite
 {
-	static final double v = 5;
+	static int v = 3;
 	double x,y,th,hth;
 	double vx = 0, vy = 0, dx = 1, dy = 1;
 	int hit = 0;
 	boolean active=false, visible=false, up = false, left = false, right = false, down = false, clock = false, Cclock = false;
 	
-	void updatePosition()
+	void updateTank(int player)
 	{
 		//All movement reactions for player inputs
 		if (up && y > 0) y-=v;
-		if (left && x > 0) x-=v;
-		if (right && x < (tankFight.WIDTH - Tank.body)) x+=v;
+		if (left && x > 0) {
+			if (player == 2 && x > tankFight.WIDTH/2 + Tank.body - wall.size/4) x-=v;
+			else if (player == 1) x-=v;
+		}
+		if (right && x < (tankFight.WIDTH - Tank.body)) {
+			if (player == 1 && x < tankFight.WIDTH/2 - Tank.body - wall.size/4) x+=v;
+			else if (player == 2) x+=v;
+		}
 		if (down && y < (tankFight.HEIGHT - Tank.body)) y+=v;
 		if (Cclock) th-=v;
 		if (clock) th+=v;
 	}
-	void fire() {		
+	
+	void fire(Sprite[] walls) {
+	
+		//Collision detection between bullets and player walls
+		for(int i = 0; i < walls.length; i++) {
+		    double dx = x-walls[i].x;
+		    double dy = y-walls[i].y;
+		    boolean test = dx*dx+dy*dy < wall.size*wall.size;
+			if (test && walls[i].isActive()) {
+				if((x > walls[i].x - wall.size/2  && x < walls[i].x + wall.size/2)) { //hitting top or bottom wall of block
+					vy = -vy;
+				}
+				else if((y > walls[i].y - wall.size/2  && y < walls[i].y + wall.size/2)) { //hitting left or right wall of block
+					vx = -vx;
+				}
+				hit++;
+				walls[i].suspend();
+				tankFight.bullWall.play(); //Play Sound
+			}
+		}
 		//Handles the moving of a bullet when fired should bounce at edges
 		if ((x < bullet.rad && vx < 0) || (x + bullet.rad > tankFight.WIDTH && vx > 0)) {
 			vx = -vx; //reverse x velocity if it his a vertical wall
@@ -45,9 +70,15 @@ class Sprite
 	{
 		x = x2; y = y2;
 	}
-	boolean isHit(Sprite b)
+	boolean isHit(Sprite b) //check for tank on bullet collision
 	{
 		if ((((b.x <= (x + Tank.body)) && ((b.x+bullet.rad) >= x)) && ((b.y <= (y+Tank.body)) && ((b.y+bullet.rad) >= y))))
+			return true;
+		return false;
+	}
+	boolean wallOverlap(Sprite b) //check if player walls are overlapping
+	{
+		if ((((b.x <= (x + wall.size)) && ((b.x+wall.size) >= x)) && ((b.y <= (y+wall.size)) && ((b.y+wall.size) >= y))))
 			return true;
 		return false;
 	}
